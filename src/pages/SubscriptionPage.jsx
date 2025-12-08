@@ -60,7 +60,7 @@ const SubscriptionPage = ({ onSuccess }) => {
     setEmail('');
     setMobile('');
 
-    if (onSuccess) onSuccess();
+    if (onSuccess) onSuccess(email);
 
     setTimeout(() => setShowSuccess(false), 3000);
   };

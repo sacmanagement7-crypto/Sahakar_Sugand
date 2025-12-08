@@ -17,8 +17,8 @@ const SubscriptionPopup = ({ onClose, onSuccess }) => {
 
         {/* Your subscription form */}
         <SubscriptionPage
-          onSuccess={() => {
-            onSuccess();
+          onSuccess={(email) => {
+            onSuccess(email);
           }}
         />
       </div>

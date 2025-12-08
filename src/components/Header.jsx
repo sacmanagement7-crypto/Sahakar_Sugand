@@ -12,10 +12,11 @@ const Header = () => {
     const navItems = [
         { name: 'होम', href: '/' },
         { name: 'हमारे बारे में', href: '/about' },
+        
+        {name:'सहकार सुगंध पत्रिका', href:'/magzines'},
         { name: 'लोकप्रिय गतिविधियाँ', href: '/lokpriya' },
         { name: 'प्रचलित समाचार', href: '/shakarsamachar' },
         { name: 'ताज़ा ख़बर', href: '#' },
-        {name:'हमारी पत्रिकाएँ', href:'/magzines'},
         { name: 'संपर्क करें', href: '/contact' },
         
     ];
