@@ -22,17 +22,17 @@ const MagazinePage = () => {
 
     // View Button Action
     const handleView = (mag) => {
-    setSelectedMag(mag);
+        setSelectedMag(mag);
 
-    // If user not subscribed → open popup
-    if (!userEmail && !mag.isFree) {
-        setShowPopup(true);
-        return;
-    }
+        // If user not subscribed → open popup
+        if (!userEmail && !mag.isFree) {
+            setShowPopup(true);
+            return;
+        }
 
-    // Already subscribed → open PDF directly
-    window.open(mag.pdf, "_blank");
-};
+        // Already subscribed → open PDF directly
+        window.open(mag.pdf, "_blank");
+    };
 
 
     return (
