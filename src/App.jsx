@@ -8,6 +8,7 @@ import ContactUsPage from './pages/ContactUsPage'
 import SahkarBhartiNews from './pages/SahkarBhartiNews'
 import Lokpriya from './pages/Lokpriya'
 import SubscriptionPage from './pages/SubscriptionPage'
+import MagazinePage from './pages/MagazinePage'
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path='/shakarsamachar' element={<SahkarBhartiNews/>}/>
         <Route path='/lokpriya' element={<Lokpriya/>}/>
         <Route path='/subscription' element={<SubscriptionPage/>}/>
+        <Route path='/magzines' element={<MagazinePage/>}/>
       </Routes>
       <Footer/>
     </div>
