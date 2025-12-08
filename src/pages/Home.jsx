@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Calendar, User, TrendingUp, Users, Award, Newspaper, ArrowRight, Clock } from "lucide-react";
+import mazineBanner from "../assets/magzine1.png";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -103,7 +104,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#fefaf5]">
-
       {/* Hero Banner with Slides */}
       <section className="relative bg-white border-b-2 border-gray-300">
         <div className="max-w-7xl mx-auto">
@@ -111,14 +111,13 @@ export default function Home() {
             {heroSlides.map((slide, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 transition-opacity duration-1000 ${
-                  index === currentSlide ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                  }`}
               >
                 <img src={slide.image} alt={slide.title} className="w-full h-full object-cover grayscale-[30%]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
-                <div className="absolute inset-0 flex items-center p-8 md:p-12">
-                  <div className="max-w-2xl space-y-4">
+                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70"></div>
+                <div className="absolute inset-0 flex items-end p-8 md:p-12">
+                  <div className="w-full space-y-4">
                     <div className="inline-block bg-gradient-to-r from-[#FFF861] to-[#FFCA61] text-gray-900 px-4 py-1 text-xs font-bold uppercase tracking-wider">
                       ब्रेकिंग न्यूज़
                     </div>
@@ -133,11 +132,48 @@ export default function Home() {
               </div>
             ))}
 
+            {/* Magazine Banner - Top Right Side */}
+            <div className="absolute top-4 right-4 w-80 border-4 border-gray-900 z-10 shadow-2xl bg-white">
+              {/* Magazine Header */}
+              <div className="bg-gradient-to-r from-[#FFF861] to-[#FFCA61] border-b-4 border-gray-900 p-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 font-serif">सहकार सुगंध</h3>
+                    <p className="text-[10px] text-gray-700 font-serif">मासिक पत्रिका</p>
+                  </div>
+                  <div className="text-right">
+                    <div className="flex items-center justify-end text-xs font-bold text-gray-900 font-serif">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      <span>दिसंबर 2025</span>
+                    </div>
+                    <p className="text-[10px] text-gray-700 font-serif">अंक 12</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Magazine Cover Image */}
+              <div className="cursor-pointer hover:opacity-95 transition-opacity">
+                <img
+                  src={mazineBanner}
+                  alt="सहकार सुगंध मैगज़ीन"
+                  className="w-full h-[300px] object-contain"
+                />
+
+              </div>
+
+              {/* Magazine Footer */}
+              <div className="bg-gray-900 border-t-4 border-gray-900 p-3">
+                <button className="w-full bg-gradient-to-r from-[#FFF861] to-[#FFCA61] text-gray-900 font-bold py-2 hover:opacity-90 transition-all uppercase text-xs tracking-wider border-2 border-gray-900">
+                  📖 पूर्ण अंक पढ़ें
+                </button>
+                <p className="text-center text-[10px] text-[#FFCA61] mt-2 font-serif">
+                  विशेष: उत्तर भारत की हवा खतरे में!
+                </p>
+              </div>
+            </div>
+
             {/* Navigation Arrows */}
-            <button
-              onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 hover:bg-white transition-all z-10"
-            >
+            <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 hover:bg-white transition-all z-10">
               <ChevronLeft className="w-5 h-5 text-gray-900" />
             </button>
             <button
@@ -153,16 +189,14 @@ export default function Home() {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`h-2 transition-all ${
-                    index === currentSlide ? 'bg-[#FFCA61] w-8' : 'bg-white/70 w-2'
-                  }`}
+                  className={`h-2 transition-all ${index === currentSlide ? 'bg-[#FFCA61] w-8' : 'bg-white/70 w-2'
+                    }`}
                 />
               ))}
             </div>
           </div>
         </div>
       </section>
-
       {/* Description Section */}
       <section className="py-8 px-4 bg-white border-b-2 border-gray-300">
         <div className="max-w-7xl mx-auto">
@@ -183,7 +217,7 @@ export default function Home() {
               प्रचलित समाचार
             </h2>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             {trendingNews.map((news, idx) => (
               <div key={idx} className="bg-white border-2 border-gray-300 hover:border-[#FFCA61] transition-all cursor-pointer">
@@ -220,7 +254,7 @@ export default function Home() {
               लोकप्रिय
             </h2>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             {popularContent.map((content, idx) => (
               <div key={idx} className="bg-white border-2 border-gray-300 p-6 hover:border-[#FFCA61] transition-all cursor-pointer">
@@ -313,8 +347,8 @@ export default function Home() {
               placeholder="आपका ईमेल पता"
               className="w-full sm:flex-1 px-6 py-3 text-gray-800 focus:outline-none border-2 border-gray-900 font-serif"
             />
-            <button 
-              className="bg-gray-900 text-[#FFCA61] px-8 py-3 font-bold hover:bg-gray-800 transition-all whitespace-nowrap uppercase tracking-wider text-sm" 
+            <button
+              className="bg-gray-900 text-[#FFCA61] px-8 py-3 font-bold hover:bg-gray-800 transition-all whitespace-nowrap uppercase tracking-wider text-sm"
               onClick={handleSubscribe}
             >
               सब्सक्राइब करें
