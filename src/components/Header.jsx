@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Search, Bell, User } from 'lucide-react';
 import NotificationPopup from "./HeaderComponents/NotificationPopup";
-import { NavLink } from 'react-router-dom';
+import { href, NavLink } from 'react-router-dom';
 
 
 const Header = () => {
@@ -15,7 +15,9 @@ const Header = () => {
         { name: 'लोकप्रिय गतिविधियाँ', href: '/lokpriya' },
         { name: 'प्रचलित समाचार', href: '/shakarsamachar' },
         { name: 'ताज़ा ख़बर', href: '#' },
+        {name:'हमारी पत्रिकाएँ', href:'/magzines'},
         { name: 'संपर्क करें', href: '/contact' },
+        
     ];
 
     return (
