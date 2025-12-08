@@ -5,7 +5,7 @@ import SubscriptionPage from "./SubscriptionPage";
 const SubscriptionPopup = ({ onClose, onSuccess }) => {
   return (
     <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-[9999]">
-      <div className="bg-white max-w-3xl w-full max-h-[80vh] overflow-y-auto rounded-xl shadow-xl relative">
+      <div className="bg-white max-w-3xl overflow-y-auto relative">
 
         {/* Close Button */}
         <button

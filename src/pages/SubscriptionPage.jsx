@@ -66,35 +66,11 @@ const SubscriptionPage = ({ onSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fefaf5] py-8 px-4 sm:px-6 lg:px-8">
+    <div className=" bg-[#fefaf5] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-
-        {/* Header */}
-        <div className="text-center mb-8 pb-4 border-b border-gray-400">
-          <Newspaper className="w-7 h-7 text-[#FFCA61] mx-auto mb-2" />
-          <h1 className="text-3xl font-bold font-serif text-gray-800">
-            सहकार सुगंध पत्रिका
-          </h1>
-          <p className="text-sm text-gray-600 mt-1">
-            सहकारिता आंदोलन का विश्वसनीय माध्यम
-          </p>
-        </div>
 
         {/* Main Card */}
         <div className="bg-white border border-gray-300 shadow-lg">
-
-          {/* Top Heading */}
-          <div className="bg-gradient-to-r from-[#FFF861] via-[#FFCA61] to-[#FFF861] p-5 border-b border-gray-300">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <Mail className="w-6 h-6 text-gray-900" />
-              <h2 className="text-2xl font-bold font-serif text-gray-900">
-                सदस्यता फॉर्म
-              </h2>
-            </div>
-            <p className="text-center text-xs text-gray-800">
-              पत्रिका की जानकारी अपने ईमेल व मोबाइल पर पाएं
-            </p>
-          </div>
 
           {/* Form */}
           <div className="p-6 space-y-5">

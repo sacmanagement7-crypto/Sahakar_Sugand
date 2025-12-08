@@ -59,7 +59,14 @@ const MagazinePage = () => {
                         className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-gray-200"
                     >
                         {/* Magazine Cover with Vintage Frame */}
-                        <div className="relative group">
+                    
+                            <div className="relative group" onClick={()=>{
+                                if(!userEmail){
+                                    setShowPopup(!showPopup)
+                                }else{
+                                     window.open(mag.pdf, "_blank");
+                                }
+                            }}>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
                             <img
                                 src={mag.titlePage}
@@ -78,6 +85,7 @@ const MagazinePage = () => {
                                 </div>
                             )}
                         </div>
+                        
 
                         {/* Title Section - Newspaper Header Style */}
                         <div className="bg-gradient-to-b from-amber-50 to-white border-t-4 border-amber-600">
@@ -99,7 +107,7 @@ const MagazinePage = () => {
                                 >
                                     <Eye size={20} strokeWidth={2.5} />
                                     <span className="font-serif">
-                                        {userEmail ? "देखें" : "सदस्य बनें"}
+                                         देखें
                                     </span>
                                 </button>
 

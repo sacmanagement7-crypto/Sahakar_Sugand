@@ -18,7 +18,7 @@ const NotificationPopup = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute right-5 top-20 z-[200]">
+    <div className="absolute right-5 top-25 z-[200]">
       <div
         ref={popupRef}
         className="w-80 bg-white/90 backdrop-blur-xl shadow-xl border border-yellow-200 
