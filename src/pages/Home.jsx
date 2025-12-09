@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Calendar, User, TrendingUp, Users, Award, Newspaper, ArrowRight, Clock } from "lucide-react";
-import mazineBanner from "../assets/magzine1.png";
+import { ChevronLeft, ChevronRight, Calendar, User, TrendingUp, Users, Award, Newspaper, ArrowRight, Clock, Lock } from "lucide-react";
+import mazineBanner from "../assets/magzine3.png";
+import pdf from "../assets/pdf3formagzine3.pdf"
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [userEmail, setUserEmail] = useState('');
+
+
+  // Load subscriber from localStorage
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("subscriberEmail");
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
 
   const handleSubscribe = () => {
     alert("🌼 स्वागत है आपका सहकार सुगंध में…");
@@ -132,45 +143,76 @@ export default function Home() {
               </div>
             ))}
 
-            {/* Magazine Banner - Top Right Side */}
-            <div className="absolute top-4 right-4 w-80 border-4 border-gray-900 z-10 shadow-2xl bg-white">
-              {/* Magazine Header */}
-              <div className="bg-gradient-to-r from-[#FFF861] to-[#FFCA61] border-b-4 border-gray-900 p-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-serif">सहकार सुगंध</h3>
-                    <p className="text-[10px] text-gray-700 font-serif">मासिक पत्रिका</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="flex items-center justify-end text-xs font-bold text-gray-900 font-serif">
-                      <Calendar className="w-3 h-3 mr-1" />
-                      <span>दिसंबर 2025</span>
+            {/* Single Magazine Box */}
+            <section className="py-10 relative z-0">
+              <div className="max-w-5xl mx-auto flex justify-center md:justify-end px-3 md:px-0 mt-[-120px] md:mt-0 relative z-20">
+
+                <div className="bg-white w-80 rounded-lg overflow-hidden border-2 border-gray-300 shadow-xl">
+
+                  {/* HEADER STRIP */}
+                  <div className="bg-gradient-to-r from-[#FFF861] to-[#FFCA61] border-b-4 border-gray-900 p-3 flex justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 font-serif">सहकार सुगंध</h3>
+                      <p className="text-[10px] text-gray-700">मासिक पत्रिका</p>
                     </div>
-                    <p className="text-[10px] text-gray-700 font-serif">अंक 12</p>
+                    <div className="text-right">
+                      <div className="flex items-center justify-end text-xs font-bold text-gray-900">
+                        <Calendar className="w-3 h-3 mr-1" /> दिसंबर 2025
+                      </div>
+                      <p className="text-[10px] text-gray-700">अंक 12</p>
+                    </div>
                   </div>
+
+                  {/* COVER CLICK AREA */}
+                  <div
+                    className="relative group cursor-pointer"
+                    onClick={() => {
+                      if (!userEmail) {
+                        window.location.href = "/magzines";
+                      } else {
+                        window.open(pdf, "_blank");
+                      }
+                    }}
+                  >
+                    <img src={mazineBanner} className="w-full h-66" />
+
+                    {!userEmail ? (
+                      <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 text-xs rounded-full shadow-lg flex items-center gap-1">
+                        <Lock className="w-3 h-3" /> लॉक्ड
+                      </div>
+                    ) : (
+                      <div className="absolute top-3 right-3 bg-green-600 text-white px-3 py-1 text-xs rounded-full shadow-lg">
+                        ✓ सक्रिय
+                      </div>
+                    )}
+                  </div>
+
+                  {/* FOOTER BUTTON */}
+                  <div className="bg-gray-900 p-5 border-t-4 border-gray-900">
+                    <button
+                      onClick={() => {
+                        if (!userEmail) {
+                          window.location.href = "/magazines";
+                          return;
+                        }
+                        window.open(pdf, "_blank");
+                      }}
+                      className="w-full bg-[#FFCA61] text-gray-900 font-bold py-3 border-2 border-gray-900"
+                    >
+                      📖 पूर्ण अंक पढ़ें
+                    </button>
+
+                    <p className="text-center text-[11px] text-[#FFCA61] mt-3">
+                      विशेष: इस अंक में पढ़ें महत्वपूर्ण जानकारी!
+                    </p>
+                  </div>
+
                 </div>
-              </div>
-
-              {/* Magazine Cover Image */}
-              <div className="cursor-pointer hover:opacity-95 transition-opacity">
-                <img
-                  src={mazineBanner}
-                  alt="सहकार सुगंध मैगज़ीन"
-                  className="w-full h-[300px] object-contain"
-                />
 
               </div>
+            </section>
 
-              {/* Magazine Footer */}
-              <div className="bg-gray-900 border-t-4 border-gray-900 p-3">
-                <button className="w-full bg-gradient-to-r from-[#FFF861] to-[#FFCA61] text-gray-900 font-bold py-2 hover:opacity-90 transition-all uppercase text-xs tracking-wider border-2 border-gray-900">
-                  📖 पूर्ण अंक पढ़ें
-                </button>
-                <p className="text-center text-[10px] text-[#FFCA61] mt-2 font-serif">
-                  विशेष: उत्तर भारत की हवा खतरे में!
-                </p>
-              </div>
-            </div>
+
 
             {/* Navigation Arrows */}
             <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 p-2 hover:bg-white transition-all z-10">

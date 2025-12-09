@@ -12,13 +12,13 @@ const Header = () => {
     const navItems = [
         { name: 'होम', href: '/' },
         { name: 'हमारे बारे में', href: '/about' },
-        
-        {name:'सहकार सुगंध पत्रिका', href:'/magzines'},
+
+        { name: 'सहकार सुगंध पत्रिका', href: '/magzines' },
         { name: 'लोकप्रिय गतिविधियाँ', href: '/lokpriya' },
         { name: 'प्रचलित समाचार', href: '/shakarsamachar' },
         { name: 'ताज़ा ख़बर', href: '#' },
         { name: 'संपर्क करें', href: '/contact' },
-        
+
     ];
 
     return (
@@ -153,9 +153,10 @@ const Header = () => {
                                 <li key={index}>
                                     <NavLink
                                         to={item.href}
+                                        onClick={() => setIsMenuOpen(false)}   // ✅ Close menu on click
                                         className={({ isActive }) =>
                                             `block px-3 py-3 font-medium rounded transition-colors
-                ${isActive
+              ${isActive
                                                 ? "text-black bg-yellow-100"
                                                 : "text-gray-700 hover:bg-[#FFF861] hover:bg-opacity-20 hover:text-gray-900"
                                             }`
