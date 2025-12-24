@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BookOpen, Users, Target, TrendingUp, Award, Heart, CheckCircle, Lightbulb, Globe, Handshake, Newspaper } from "lucide-react";
+import { aboutGet } from "../service/axios";
 
 export default function AboutUs() {
-  const targetAudience = [
-    { icon: Users, title: "सहकारी संस्थाएँ", desc: "एवं उनके सदस्य" },
-    { icon: TrendingUp, title: "किसान", desc: "महिला समूह और युवा उद्यमी" },
-    { icon: Award, title: "सहकारी बैंक", desc: "और समितियाँ" },
-    { icon: BookOpen, title: "शोधकर्ता", desc: "विद्यार्थी और नीति-निर्माता" },
-    { icon: Globe, title: "ग्रामीण विकास", desc: "में रुचि रखने वाले पाठक" }
-  ];
+  const [header, setHeader] = useState({});
+  const [heroSlides, setHeroSlides] = useState({});
+  const [Introduction, setIntroduction] = useState({});
+  const [pourpose, setPurpose] = useState({});
+  const [value, setValues] = useState([]);
+  const [targetAudience, setTargetAudience] = useState([]);
+  const [features, setFeatures] = useState([]);
 
   const values = [
     { icon: Handshake, title: "सहयोग" },
@@ -23,18 +24,27 @@ export default function AboutUs() {
     { icon: Heart, title: "सकारात्मक पत्रकारिता", desc: "समाधान-केंद्रित और रचनात्मक दृष्टिकोण अपनाते हैं" }
   ];
 
-  const features = [
-    "40+ वर्षों का अनुभव और विश्वास",
-    "50,000+ सक्रिय पाठक और सदस्य",
-    "देशभर में व्यापक पहुंच",
-    "मासिक प्रकाशन की नियमितता",
-    "विशेषज्ञों द्वारा समीक्षित सामग्री",
-    "डिजिटल और प्रिंट दोनों माध्यम"
-  ];
-
+  useEffect(() => {
+    const fetchAboutUs = async () => {
+      try {
+        const res = await aboutGet();
+        console.log(res.data.data);
+        setHeader(res.data.data.header);
+        setHeroSlides(res.data.data.hero);
+        setIntroduction(res.data.data.introduction);
+        setPurpose(res.data.data.purpose);
+        setValues(res.data.data.values);
+        setTargetAudience(res.data.data.audience);
+        setFeatures(res.data.data.features);
+      } catch (error) {
+        console.error("Failed to fetch About Us", error);
+      }
+    };
+    fetchAboutUs();
+  }, []);
+  console.log(value);
   return (
     <div className="min-h-screen bg-[#fefaf5]">
-      {/* Newspaper Header */}
       <div className="bg-white border-b-4 border-double border-gray-900 py-6 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center border-b-2 border-gray-900 pb-4">
@@ -44,7 +54,7 @@ export default function AboutUs() {
               <div className="w-32 h-[2px] bg-gradient-to-r from-transparent via-[#FFCA61] to-transparent"></div>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 font-serif tracking-tight">
-              हमारे बारे में
+              {header.title}
             </h1>
           </div>
         </div>
@@ -55,7 +65,7 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto text-center">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-serif">
-              सहकारिता की सुगंध को घर-घर तक पहुँचाने वाली भारत की अग्रणी मासिक पत्रिका
+              {heroSlides.title}
             </h2>
           </div>
         </div>
@@ -66,31 +76,20 @@ export default function AboutUs() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-8 items-start">
             <div className="space-y-4">
-              <div className="inline-block bg-gradient-to-r from-[#FFF861] to-[#FFCA61] text-gray-900 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-gray-900">
-                सहकार सुगंध का परिचय
-              </div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif border-b-2 border-gray-900 pb-2">
-                सहकारिता आंदोलन की आवाज़
+                {Introduction.title}
               </h3>
               <div className="space-y-3 text-justify">
-                <p className="text-sm text-gray-800 leading-relaxed font-serif">
-                  <strong>सहकार सुगंध</strong> एक मासिक पत्रिका है, जो देशभर में सहकारिता आंदोलन की सुगंध को घर-घर तक पहुँचाने के उद्देश्य से प्रकाशित की जाती है।
-                </p>
-                <p className="text-sm text-gray-800 leading-relaxed font-serif">
-                  हमारा लक्ष्य केवल सूचनाएँ देना नहीं, बल्कि <strong>सहकारी मूल्यों</strong>—सहयोग, सहभागिता, पारदर्शिता और सामूहिक विकास—को समाज में मजबूत करना है।
-                </p>
-                <p className="text-sm text-gray-800 leading-relaxed font-serif">
-                  इस पत्रिका के माध्यम से हम सहकारी संस्थाओं, किसानों, ग्रामीण उद्यमियों, स्वयं-सहायता समूहों, युवाओं और नीति-निर्माताओं को एक साझा मंच प्रदान करते हैं, जहाँ ज्ञान, अनुभव और नवाचार का आदान-प्रदान सहज रूप से हो सके।
-                </p>
+                {Introduction.paragraphs?.map((para, index) => (
+                  <p className="text-sm text-gray-800 leading-relaxed font-serif">
+                    {para}
+                  </p>
+                ))}
               </div>
             </div>
 
             <div className="border-4 border-gray-900">
-              <img 
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=700&h=700&fit=crop" 
-                alt="Team Collaboration" 
-                className="w-full h-80 object-cover grayscale-[20%]"
-              />
+              <img src={Introduction.image} alt="Team Collaboration" className="w-full h-80 object-cover grayscale-[20%]" />
               <div className="bg-gradient-to-r from-[#FFF861] to-[#FFCA61] p-4 border-t-2 border-gray-900">
                 <div className="flex items-center justify-center space-x-4">
                   <BookOpen className="w-8 h-8 text-gray-900" />
@@ -108,23 +107,50 @@ export default function AboutUs() {
       {/* Our Purpose Section */}
       <section className="py-12 px-4 bg-[#fefaf5] border-b-2 border-gray-300">
         <div className="max-w-7xl mx-auto">
+
+          {/* Heading */}
           <div className="text-center mb-6">
             <div className="inline-block bg-gradient-to-r from-[#FFF861] to-[#FFCA61] text-gray-900 px-3 py-1 text-xs font-bold uppercase tracking-wider border border-gray-900 mb-4">
               हमारा उद्देश्य
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif border-b-2 border-gray-900 pb-2 inline-block">विकास की संस्कृति</h3>
+
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif border-b-2 border-gray-900 pb-2 inline-block">
+              {pourpose?.title}
+            </h3>
           </div>
-          <div className="max-w-5xl mx-auto bg-gradient-to-r from-[#FFF861] to-[#FFCA61] border-4 border-gray-900 p-8 text-gray-900">
-            <Target className="w-12 h-12 mx-auto mb-4" />
-            <p className="text-xl md:text-2xl font-bold leading-relaxed mb-4 text-center font-serif">
-              "सहकारिता सिर्फ व्यवस्था नहीं, बल्कि विकास की संस्कृति है।"
-            </p>
-            <p className="text-sm leading-relaxed text-center font-serif">
-              सहकारिता को केवल एक संगठनात्मक ढाँचे के रूप में नहीं, बल्कि <strong>सामूहिक विकास का सार्थक मार्ग</strong> बनाकर प्रस्तुत करना हमारा मुख्य उद्देश्य है।
-            </p>
+
+          {/* Content Box */}
+          <div className="max-w-5xl mx-auto bg-gradient-to-r from-[#FFF861] to-[#FFCA61] border-4 border-gray-900 p-8 text-gray-900 text-center">
+
+            {/* Icon */}
+            <div className="text-5xl mb-4">
+              {pourpose?.icon || "🎯"}
+            </div>
+
+            {/* Description */}
+            {pourpose?.description
+              ?.split("\n\n")
+              .map((text, index) =>
+                index === 0 ? (
+                  <p
+                    key={index}
+                    className="text-xl md:text-2xl font-bold leading-relaxed mb-4 font-serif"
+                  >
+                    {text.replace(/"/g, "")}
+                  </p>
+                ) : (
+                  <p
+                    key={index}
+                    className="text-sm leading-relaxed font-serif"
+                  >
+                    {text}
+                  </p>
+                )
+              )}
           </div>
         </div>
       </section>
+
 
       {/* Core Values */}
       <section className="py-12 px-4 bg-white border-b-2 border-gray-300">
@@ -136,14 +162,14 @@ export default function AboutUs() {
             <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif border-b-2 border-gray-900 pb-2 inline-block mb-2">सहकारी मूल्य</h3>
             <p className="text-sm text-gray-600 font-serif">जो हमें परिभाषित करते हैं</p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {values.map((value, idx) => (
+            {value.map((val, idx) => (
               <div key={idx} className="border-2 border-gray-300 p-6 text-center hover:border-[#FFCA61] transition-all bg-white">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#FFF861] to-[#FFCA61] flex items-center justify-center mx-auto mb-3">
-                  <value.icon className="w-6 h-6 text-gray-900" />
+                <div className="w-10 h-10 bg-gradient-to-br from-[#FFF861] to-[#FFCA61] flex items-center justify-center mx-auto mb-3">
+                  <span className="text-xl color-dark">{val.icon}</span>
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 font-serif">{value.title}</h4>
+                <h4 className="text-lg font-bold text-gray-900 font-serif">{val.title}</h4>
               </div>
             ))}
           </div>
@@ -164,8 +190,8 @@ export default function AboutUs() {
           <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
             {targetAudience.map((audience, idx) => (
               <div key={idx} className="bg-white border-2 border-gray-300 p-4 text-center hover:border-[#FFCA61] transition-all">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#FFF861] to-[#FFCA61] flex items-center justify-center mx-auto mb-3">
-                  <audience.icon className="w-6 h-6 text-gray-900" />
+                <div className="w-8 h-8 text-xl bg-gradient-to-br from-[#FFF861] to-[#FFCA61] flex items-center justify-center mx-auto mb-3">
+                  {audience.icon}
                 </div>
                 <h4 className="text-sm font-bold text-gray-900 mb-1 font-serif">{audience.title}</h4>
                 <p className="text-xs text-gray-600 font-serif">{audience.desc}</p>

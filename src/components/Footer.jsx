@@ -1,188 +1,129 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Youtube, Linkedin, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
+  ArrowRight
+} from 'lucide-react';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   const states = [
-    'उत्तर प्रदेश', 'महाराष्ट्र', 'राजस्थान', 'मध्य प्रदेश', 
-    'गुजरात', 'बिहार', 'पंजाब', 'हरियाणा',
-    'दिल्ली', 'कर्नाटक', 'तमिलनाडु', 'पश्चिम बंगाल'
+    'आंध्र प्रदेश', 'अरुणाचल प्रदेश', 'असम', 'बिहार', 'छत्तीसगढ़',
+    'गोवा', 'गुजरात', 'हरियाणा', 'हिमाचल प्रदेश', 'झारखंड',
+    'कर्नाटक', 'केरल', 'मध्य प्रदेश', 'महाराष्ट्र', 'मणिपुर',
+    'मेघालय', 'मिजोरम', 'नागालैंड', 'ओडिशा', 'पंजाब',
+    'राजस्थान', 'सिक्किम', 'तमिलनाडु', 'तेलंगाना',
+    'त्रिपुरा', 'उत्तर प्रदेश', 'उत्तराखंड', 'पश्चिम बंगाल'
   ];
 
-  const politicians = [
-    'प्रधानमंत्री', 'गृह मंत्री', 'रक्षा मंत्री', 'वित्त मंत्री',
-    'मुख्यमंत्री यूपी', 'मुख्यमंत्री महाराष्ट्र', 'विपक्ष नेता', 'राज्यपाल'
-  ];
-
-  const trendingNews = [
-    'सहकार भारती की बैठक',
-    'सहकारी समितियों का विकास',
-    'कृषि सहकारिता योजना',
-    'ग्रामीण विकास कार्यक्रम',
-    'सहकारी बैंक समाचार',
-    'किसान सहकारिता अपडेट'
+  const socials = [
+    { Icon: Facebook, color: 'hover:bg-blue-600' },
+    { Icon: Twitter, color: 'hover:bg-sky-500' },
+    { Icon: Instagram, color: 'hover:bg-pink-600' },
+    { Icon: Youtube, color: 'hover:bg-red-600' },
+    { Icon: Linkedin, color: 'hover:bg-blue-700' }
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-gray-300">
+    <footer className="bg-gradient-to-br from-orange-50 via-white to-green-50 border-t border-orange-200">
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          
-          {/* About Section */}
-          <div>
-            <h4 className="text-2xl font-bold mb-4" style={{color: '#FFF861'}}>सहकार सुगंध</h4>
-            <p className="text-gray-400 mb-4 leading-relaxed">
-              सहकार सुगंध एक मासिक पत्रिका है, जो देशभर में सहकारिता आंदोलन की सुगंध को घर-घर तक पहुँचाने के उद्देश्य से प्रकाशित की जाती है।
+          {/* About */}
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-orange-600">सहकार सुगंध</h3>
+            <p className="text-gray-700 text-sm leading-relaxed">
+              सहकार सुगंध एक मासिक पत्रिका है, जो देशभर में सहकारिता आंदोलन की
+              सुगंध को जन-जन तक पहुँचाने के उद्देश्य से प्रकाशित की जाती है।
             </p>
-            <div className="space-y-2">
-              <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-[#FFF861] transition-colors">
-                <Phone size={16} />
-                <span>+91 1234567890</span>
-              </a>
-              <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-[#FFF861] transition-colors">
-                <Mail size={16} />
-                <span>info@sahkaarpatrika.com</span>
-              </a>
-              <div className="flex items-start gap-2 text-gray-400">
-                <MapPin size={16} className="mt-1 flex-shrink-0" />
-                <span>लखनऊ, उत्तर प्रदेश, भारत</span>
+
+            <div className="space-y-2 text-sm">
+              <div className="flex items-center gap-2 text-gray-600">
+                <Phone className="w-4 h-4 text-orange-500" />
+                +91 12345 67890
+              </div>
+              <div className="flex items-center gap-2 text-gray-600">
+                <Mail className="w-4 h-4 text-orange-500" />
+                info@sahkaarsugandh.com
+              </div>
+              <div className="flex items-start gap-2 text-gray-600">
+                <MapPin className="w-4 h-4 text-orange-500 mt-0.5" />
+                लखनऊ, उत्तर प्रदेश, भारत
               </div>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-bold mb-4" style={{color: '#FFCA61'}}>त्वरित लिंक</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="/" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group">
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  होम
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group">
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  हमारे बारे में
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group">
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  संपर्क करें
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group">
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  गोपनीयता नीति
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group">
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  नियम और शर्तें
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group">
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                  विज्ञापन
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Trending News */}
-          <div>
-            <h4 className="text-lg font-bold mb-4" style={{color: '#FFCA61'}}>प्रचलित समाचार</h4>
-            <p className="text-xs text-gray-500 mb-3">सहकार भारती प्रचलित समाचार</p>
-            <ul className="space-y-2">
-              {trendingNews.map((news, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFCA61] flex-shrink-0"></span>
-                    {news}
-                  </a>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-gray-800">त्वरित लिंक</h3>
+            <ul className="space-y-2 text-sm">
+              {[
+                { name: 'होम', path: '/' },
+                { name: 'हमारे बारे में', path: '/about' },
+                { name: 'सहकार सुगंध पत्रिका', path: '/magzines' },
+                { name: 'गतिविधियाँ', path: '/lokpriya' },
+                { name: 'संपर्क करें', path: '/contact' }
+              ].map(link => (
+                <li key={link.name}>
+                  <button
+                    onClick={() => navigate(link.path)}
+                    className="flex items-center gap-2 text-gray-600 hover:text-orange-600 transition-all group"
+                  >
+                    <ArrowRight className="w-3.5 h-3.5 text-orange-400 opacity-0 group-hover:opacity-100" />
+                    {link.name}
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Popular Politicians */}
-          <div>
-            <h4 className="text-lg font-bold mb-4" style={{color: '#FFCA61'}}>लोकप्रिय</h4>
-            <p className="text-xs text-gray-500 mb-3">राजनेता, शीर्ष नेता</p>
-            <ul className="space-y-2">
-              {politicians.map((politician, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-[#FFF861] transition-colors flex items-center gap-2 group text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFCA61] flex-shrink-0"></span>
-                    {politician}
-                  </a>
-                </li>
+          {/* States */}
+          <div className="space-y-4 lg:col-span-2">
+            <h3 className="text-lg font-semibold text-gray-800">राज्य कवरेज</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2 text-sm">
+              {states.map(state => (
+                <span
+                  key={state}
+                  className="text-gray-600 hover:text-orange-600 transition-colors"
+                >
+                  {state}
+                </span>
               ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Social Media */}
-        <div className="border-t border-gray-700 pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-sm">हमें फॉलो करें</p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110"
-                style={{background: 'linear-gradient(135deg, #FFF861, #FFCA61)'}}
-              >
-                <Facebook size={20} className="text-gray-800" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110"
-                style={{background: 'linear-gradient(135deg, #FFF861, #FFCA61)'}}
-              >
-                <Twitter size={20} className="text-gray-800" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110"
-                style={{background: 'linear-gradient(135deg, #FFF861, #FFCA61)'}}
-              >
-                <Instagram size={20} className="text-gray-800" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110"
-                style={{background: 'linear-gradient(135deg, #FFF861, #FFCA61)'}}
-              >
-                <Youtube size={20} className="text-gray-800" />
-              </a>
-              <a
-                href="#"
-                className="w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-all hover:scale-110"
-                style={{background: 'linear-gradient(135deg, #FFF861, #FFCA61)'}}
-              >
-                <Linkedin size={20} className="text-gray-800" />
-              </a>
             </div>
           </div>
+
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-700">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-            <p>© 2025 सहकार सुगंध। सर्वाधिकार सुरक्षित।</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-[#FFF861] transition-colors">गोपनीयता नीति</a>
-              <a href="#" className="hover:text-[#FFF861] transition-colors">नियम और शर्तें</a>
-              <a href="#" className="hover:text-[#FFF861] transition-colors">कुकी नीति</a>
-            </div>
+      <div className="border-t border-orange-200 bg-white/70">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-600">
+
+          <p>
+            © 2025 <span className="font-semibold text-gray-700">सहकार सुगंध</span>। सर्वाधिकार सुरक्षित।
+          </p>
+
+          <div className="flex gap-3">
+            {socials.map(({ Icon, color }, i) => (
+              <a
+                key={i}
+                href="#"
+                className={`w-9 h-9 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:text-white ${color} transition-all hover:scale-110 hover:shadow-md`}
+              >
+                <Icon className="w-4 h-4" />
+              </a>
+            ))}
           </div>
+
         </div>
       </div>
     </footer>

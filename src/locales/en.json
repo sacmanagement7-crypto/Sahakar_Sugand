@@ -1,0 +1,17 @@
+{
+  "site_title": "Sahkar Sugandh",
+  "search_placeholder": "Search news...",
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "magazine": "Sahkar Sugandh Magazine",
+    "activities": "Activities",
+    "ads": "Advertisements",
+    "news": "Latest News",
+    "contact": "Contact Us"
+  },
+  "ads": {
+    "website": "Website Advertisement",
+    "smarika": "Souvenir Advertisement"
+  }
+}

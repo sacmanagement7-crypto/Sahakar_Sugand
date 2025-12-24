@@ -1,1 +1,22 @@
 @import "tailwindcss";
+
+/* Hide Google Translate top bar */
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+/* Reset any top offset Google adds to the body */
+body {
+    top: 0 !important;
+}
+
+/* Hide Google Translate logo and gadget */
+.goog-logo-link,
+.goog-te-gadget {
+    display: none !important;
+}
+
+/* Hide the Google Translate element if you are using your custom dropdown */
+#google_translate_element {
+    display: none;
+}

@@ -1,12 +1,12 @@
 // Import PDFs from assets folder
 import pdf1 from "../assets/pdf1formagzine1.pdf"
 import pdf2 from "../assets/pdf2formagzine2.pdf"
-import pdf3 from "../assets/pdf3formagzine3.pdf"
+import pdf3 from "../assets/letest.pdf"
 
 // Optional: import cover pages from assets
 import cover1 from "../assets/magzine1.png";
 import cover2 from "../assets/magzine2.png";
-import cover3 from "../assets/magzine3.png";
+import cover3 from "../assets/letestCover.png";
 
 // Dummy magazines array
 export const magazines = [

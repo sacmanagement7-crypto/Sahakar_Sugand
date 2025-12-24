@@ -1,80 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Send, CheckCircle, Newspaper, Users, Phone } from 'lucide-react';
+import React, { useState } from "react";
+import { Mail, Send, CheckCircle, Users, Phone } from "lucide-react";
+import { subscriberCreate } from "../service/axios";
 
 const SubscriptionPage = ({ onSuccess }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobile, setMobile] = useState('');
-  const [subscribers, setSubscribers] = useState([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    setSubscribers([]);
-  }, []);
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (!name || name.trim().length < 2) {
-      setError('कम से कम 2 अक्षर का नाम दर्ज करें');
+      setError("कम से कम 2 अक्षर का नाम दर्ज करें");
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
-      setError('ईमेल दर्ज करें');
+      setError("ईमेल दर्ज करें");
       return;
     }
     if (!emailRegex.test(email)) {
-      setError('मान्य ईमेल दर्ज करें');
+      setError("मान्य ईमेल दर्ज करें");
       return;
     }
 
     if (!mobile || mobile.length !== 10) {
-      setError('10 अंकों का मोबाइल नंबर दर्ज करें');
+      setError("10 अंकों का मोबाइल नंबर दर्ज करें");
       return;
     }
 
-    const emailExists = subscribers.some((sub) => sub.email === email);
-    if (emailExists) {
-      setError('यह ईमेल पहले से पंजीकृत है');
-      return;
+    try {
+      setLoading(true);
+
+      const res = await subscriberCreate({
+        name: name.trim(),
+        email,
+        mobile,
+      });
+
+      const data = res.data;
+
+      if (!data.success) {
+        setError(data.message || "कुछ गलत हो गया");
+        return;
+      }
+
+      const subscriber = data.data;
+
+      localStorage.setItem("subscriberId", subscriber._id);
+      localStorage.setItem("subscriberName", subscriber.name);
+      localStorage.setItem("subscriberEmail", subscriber.email);
+      localStorage.setItem("subscriberMobile", subscriber.mobile);
+
+      setShowSuccess(true);
+      setName("");
+      setEmail("");
+      setMobile("");
+
+      if (onSuccess) onSuccess(subscriber.email);
+
+      setTimeout(() => setShowSuccess(false), 3000);
+    } catch (err) {
+      console.error(err);
+      setError(
+        err.response?.data?.message || "सर्वर से कनेक्ट नहीं हो पाया"
+      );
+    } finally {
+      setLoading(false);
     }
-
-    const newSubscriber = {
-      name: name.trim(),
-      email,
-      mobile,
-      date: new Date().toLocaleDateString('hi-IN'),
-    };
-
-    setSubscribers([...subscribers, newSubscriber]);
-
-    localStorage.setItem('subscriberEmail', email);
-    localStorage.setItem('subscriberMobile', mobile);
-
-    setShowSuccess(true);
-    setName('');
-    setEmail('');
-    setMobile('');
-
-    if (onSuccess) onSuccess(email);
-
-    setTimeout(() => setShowSuccess(false), 3000);
   };
 
   return (
-    <div className=" bg-[#fefaf5] py-8 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#fefaf5] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-
-        {/* Main Card */}
         <div className="bg-white border border-gray-300 shadow-lg">
-
-          {/* Form */}
           <div className="p-6 space-y-5">
-
             {/* Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-800 mb-1">
@@ -136,10 +141,11 @@ const SubscriptionPage = ({ onSuccess }) => {
             {/* Submit */}
             <button
               onClick={handleSubmit}
-              className="w-full bg-gray-900 hover:bg-gray-800 text-white text-sm font-bold py-3 flex items-center justify-center gap-2"
+              disabled={loading}
+              className="w-full bg-gray-900 hover:bg-gray-800 disabled:opacity-60 text-white text-sm font-bold py-3 flex items-center justify-center gap-2"
             >
               <Send className="w-4 h-4" />
-              सदस्यता लें
+              {loading ? "कृपया प्रतीक्षा करें..." : "सदस्यता लें"}
             </button>
 
             {/* Success */}
@@ -148,14 +154,14 @@ const SubscriptionPage = ({ onSuccess }) => {
                 <CheckCircle className="w-5 h-5 text-green-600" />
                 <div>
                   <p className="font-bold text-green-900">सदस्यता सफल!</p>
-                  <p className="text-green-700">आपको जल्द ही जानकारी मिलेगी।</p>
+                  <p className="text-green-700">
+                    आपको जल्द ही जानकारी मिलेगी।
+                  </p>
                 </div>
               </div>
             )}
-
           </div>
         </div>
-
       </div>
     </div>
   );

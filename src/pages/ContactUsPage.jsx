@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, User, MessageSquare, FileText, Newspaper } from "lucide-react";
+import { getContactDetails } from "../service/axios";
 
 export default function ContactUsPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    subject: "",
-    message: ""
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", mobile: "", subject: "", message: "" });
+  const [contactDetails, setContactDetails] = useState({});
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +34,7 @@ export default function ContactUsPage() {
     }
 
     alert("धन्यवाद! आपका संदेश सफलतापूर्वक भेज दिया गया है। हम जल्द ही आपसे संपर्क करेंगे।");
-    
+
     // Reset form
     setFormData({
       name: "",
@@ -58,6 +54,20 @@ export default function ContactUsPage() {
     "समाचार / लेख भेजना",
     "अन्य"
   ];
+
+  useEffect(() => {
+    const contactInfo = async () => {
+      try {
+        const res = await getContactDetails();
+        console.log(res.data.data);
+        setContactDetails(res.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    contactInfo();
+  }, []);
+
 
   return (
     <div className="min-h-screen bg-[#fefaf5]">
@@ -99,9 +109,7 @@ export default function ContactUsPage() {
             </div>
             <h3 className="text-lg font-bold text-gray-900 text-center mb-3 font-serif border-b border-gray-200 pb-2">📍 हमारा पता</h3>
             <p className="text-sm text-gray-700 text-center leading-relaxed font-serif">
-              XYZ कार्यालय, XYZ रोड,<br />
-              लखनऊ – 226001,<br />
-              उत्तर प्रदेश
+              {contactDetails.address}
             </p>
           </div>
 
@@ -112,13 +120,13 @@ export default function ContactUsPage() {
             </div>
             <h3 className="text-lg font-bold text-gray-900 text-center mb-3 font-serif border-b border-gray-200 pb-2">📞 हेल्पलाइन</h3>
             <p className="text-sm text-gray-700 text-center leading-relaxed font-serif">
-              <a href="tel:+919XXXXXXXXX" className="text-[#FFCA61] hover:underline font-bold">
-                +91 9XXXXXXXXX
+              <a href={`tel:${contactDetails.phone}`} className="text-[#FFCA61] hover:underline font-bold">
+                {contactDetails.phone}
               </a>
             </p>
             <div className="flex items-center justify-center space-x-2 mt-3 text-xs text-gray-600 font-serif">
               <Clock className="w-4 h-4" />
-              <span>सोम–शुक्र | 10 AM – 6 PM</span>
+              <span>{contactDetails.officeTime || "सोम–शुक्र | 10 AM – 6 PM"} </span>
             </div>
           </div>
 
@@ -129,13 +137,8 @@ export default function ContactUsPage() {
             </div>
             <h3 className="text-lg font-bold text-gray-900 text-center mb-3 font-serif border-b border-gray-200 pb-2">📧 ईमेल</h3>
             <p className="text-sm text-gray-700 text-center leading-relaxed font-serif">
-              <a href="mailto:info@sahkarsugandh.com" className="text-[#FFCA61] hover:underline font-bold">
-                info@sahkarsugandh.com
-              </a>
-            </p>
-            <p className="text-sm text-gray-700 text-center mt-2 font-serif">
-              <a href="mailto:support@sahkarsugandh.com" className="text-[#FFCA61] hover:underline font-bold">
-                support@sahkarsugandh.com
+              <a href={`mailto:${contactDetails.emailAds}`} className="text-[#FFCA61] hover:underline font-bold">
+                {contactDetails.emailAds}
               </a>
             </p>
           </div>
@@ -159,12 +162,7 @@ export default function ContactUsPage() {
                   <User className="w-4 h-4 inline mr-2" />
                   नाम (Full Name) *
                 </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="अपना पूरा नाम दर्ज करें"
+                <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="अपना पूरा नाम दर्ज करें"
                   className="w-full px-4 py-3 border-2 border-gray-300 focus:outline-none focus:border-[#FFCA61] transition-colors font-serif text-sm"
                 />
               </div>
@@ -264,7 +262,7 @@ export default function ContactUsPage() {
                 <p className="text-sm text-gray-700 mb-4 font-serif">
                   हमारे कार्यालय में आने के लिए नीचे दिए गए मानचित्र का उपयोग करें।
                 </p>
-                
+
                 {/* Google Map Embed */}
                 <div className="relative w-full h-80 border-2 border-gray-300 overflow-hidden">
                   <iframe
@@ -279,13 +277,7 @@ export default function ContactUsPage() {
                   ></iframe>
                 </div>
 
-                {/* Get Directions Button */}
-                <a
-                  href="https://www.google.com/maps/dir//Lucknow,+Uttar+Pradesh/@26.8467088,80.77769895,11z"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 w-full bg-gray-900 text-[#FFCA61] font-bold py-3 hover:bg-gray-800 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider text-sm"
-                >
+                <a href={contactDetails.mapUrl} target="_blank" rel="noopener noreferrer" className="mt-4 w-full bg-gray-900 text-[#FFCA61] font-bold py-3 hover:bg-gray-800 transition-all flex items-center justify-center space-x-2 uppercase tracking-wider text-sm">
                   <MapPin className="w-5 h-5" />
                   <span>Get Directions</span>
                 </a>
@@ -317,19 +309,19 @@ export default function ContactUsPage() {
           <div className="grid md:grid-cols-4 gap-4">
             <div className="p-4 bg-white border-2 border-gray-300 hover:border-[#FFCA61] transition-all">
               <h3 className="font-bold text-sm text-gray-900 mb-2 font-serif">📰 विज्ञापन पूछताछ</h3>
-              <p className="text-xs text-gray-700 font-serif">ads@sahkarsugandh.com</p>
+              <p className="text-xs text-gray-700 font-serif">{contactDetails.emailAds}</p>
             </div>
             <div className="p-4 bg-white border-2 border-gray-300 hover:border-[#FFCA61] transition-all">
               <h3 className="font-bold text-sm text-gray-900 mb-2 font-serif">✍️ समाचार भेजें</h3>
-              <p className="text-xs text-gray-700 font-serif">news@sahkarsugandh.com</p>
+              <p className="text-xs text-gray-700 font-serif">{contactDetails.emailNews}</p>
             </div>
             <div className="p-4 bg-white border-2 border-gray-300 hover:border-[#FFCA61] transition-all">
               <h3 className="font-bold text-sm text-gray-900 mb-2 font-serif">💼 करियर</h3>
-              <p className="text-xs text-gray-700 font-serif">careers@sahkarsugandh.com</p>
+              <p className="text-xs text-gray-700 font-serif">{contactDetails.emailCareers}</p>
             </div>
             <div className="p-4 bg-white border-2 border-gray-300 hover:border-[#FFCA61] transition-all">
               <h3 className="font-bold text-sm text-gray-900 mb-2 font-serif">🛠️ तकनीकी सहायता</h3>
-              <p className="text-xs text-gray-700 font-serif">support@sahkarsugandh.com</p>
+              <p className="text-xs text-gray-700 font-serif">{contactDetails.emailSupport}</p>
             </div>
           </div>
         </div>
